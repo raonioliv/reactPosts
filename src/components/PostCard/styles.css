@@ -1,0 +1,23 @@
+.post {
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    transition: .2s ease-in-out;
+
+}
+
+.post-content {
+    padding: 30px;
+    max-height: 500px;
+}
+
+.postImg {
+    max-width: 100%;
+}
+
+
+.post:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
