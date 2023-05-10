@@ -6,12 +6,14 @@ import { Component } from 'react';
 import { loadPosts } from '../../utils/load-posts';
 import { Posts } from '../../components/Posts';
 import { LoadMorePosts } from '../../components/LoadMorePosts'
+import {SearchBar} from '../../components/SearchBar'
 class Home extends Component { 
   state = { 
     posts: [],
     allPosts: [], 
     page: 0, 
-    postsPerPage: 20
+    postsPerPage: 20,
+    searchValue: ''
   }
 
   componentDidMount(){ 
@@ -32,7 +34,7 @@ class Home extends Component {
       page,
       postsPerPage,
       allPosts, 
-      posts
+      posts,
      } = this.state
 
     const nextPage = page + postsPerPage
@@ -42,17 +44,44 @@ class Home extends Component {
       posts, page: nextPage
     }) 
   }
+  handleChange = (event)=>{
+    this.setState({searchValue: event.target.value })
+  } 
+
   render(){ 
-    const {posts, postsPerPage, page, allPosts} = this.state
+    const {posts, postsPerPage, page, allPosts,  searchValue} = this.state
     const noMorePosts = page + postsPerPage >= allPosts.length ? true : false 
+
+    const filteredPosts = !!searchValue ? allPosts.filter(post => {
+      return post.title.toLowerCase().includes(searchValue.toLowerCase())
+    }) 
+    : posts
     return (
       <section className='container'>
-        <Posts posts={posts}/>
-        <LoadMorePosts 
-        text={'Load more posts'}
-        loadMorePosts={this.loadMorePosts}
-        disabled={noMorePosts}
-        />
+
+        { !!searchValue && filteredPosts.length > 0 &&(
+        <>
+          <h1><b>Buscando por: </b> {searchValue} </h1>
+        </>
+        )} 
+
+        <SearchBar handleChange={this.handleChange} inputValue={searchValue} />
+        <Posts posts={filteredPosts}/>
+
+        {!!!searchValue && (
+          <>
+            <LoadMorePosts 
+            text={'Load more posts'}
+            loadMorePosts={this.loadMorePosts}
+            disabled={noMorePosts}
+            />
+          </>
+        )}
+        {!!searchValue && (
+          <>
+           <h1>Não há resultados para esta busca =( </h1>
+          </>
+        )}
       </section>
     );
   }
