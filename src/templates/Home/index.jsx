@@ -17,10 +17,10 @@ class Home extends Component {
   }
 
   componentDidMount(){ 
-    this.loadPosts()
+    this.setPosts()
   }
 
-  loadPosts = async () => { 
+  setPosts = async () => { 
     const {page, postsPerPage} = this.state
     const postsAndPhotos = await loadPosts()
     this.setState({

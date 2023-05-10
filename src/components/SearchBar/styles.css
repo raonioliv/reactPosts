@@ -1,10 +1,8 @@
 .searchBar__wrapper{
     padding: 30px 10px;
+    max-width: 500px;
 }
 .searchBar__input{ 
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid lightgray;
     min-width: 200px;
 }
 
@@ -15,3 +13,5 @@
     width: 1px;
     height: 1px;
 }
+
+

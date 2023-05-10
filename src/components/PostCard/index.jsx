@@ -2,7 +2,7 @@ import './styles.css'
 
 export const PostCard = ({ post }) => {
   return (
-    <div className="post" key={post.id}>
+    <div className="post">
       <img className="postImg" src={post.cover} alt={post.title} />
       <div className="post-content">
         <h2>{post.title}</h2>

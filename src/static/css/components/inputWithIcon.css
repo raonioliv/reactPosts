@@ -1,0 +1,23 @@
+.inputWithIcon{
+    position: relative;
+}
+
+.inputWithIcon input{
+    border: none;
+    background: #fff;
+    width: 100%;
+    height: auto;
+    padding: 12px ;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.search-icon{
+    content: url("../../images/search.png");
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translate(0, -50%);
+    cursor: pointer;
+}
