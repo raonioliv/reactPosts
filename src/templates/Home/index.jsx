@@ -77,7 +77,7 @@ class Home extends Component {
             />
           </>
         )}
-        {!!searchValue && (
+        { !filteredPosts.length && (
           <>
            <h1>Não há resultados para esta busca =( </h1>
           </>
