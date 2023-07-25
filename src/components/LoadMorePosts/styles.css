@@ -18,3 +18,7 @@
 .loadMorePosts__button:disabled{ 
     background-color: lightgray;
 }
+
+loadMorePosts__button:hover{ 
+    cursor: pointer;
+}

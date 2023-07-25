@@ -3,14 +3,19 @@ import './styles.css'
 
 import { PostCard } from '../PostCard';
 
-export const Posts = ({ posts }) => {
+export const Posts = ({ posts = [] }) => {
   
   return (
     <div className="posts">
-      {posts.map((post) => (
+      {!!posts.length && posts.map((post) => (
         <PostCard 
-        post={post} 
-        key={post.id}/>
+          key={post.id}
+          title={post.title}
+          body={post.body}
+          id={post.id}
+          cover={post.cover}
+        />
+        
       ))}
     </div>
   );
