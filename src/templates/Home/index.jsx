@@ -1,90 +1,76 @@
 import './styles.css';
 
-import { Component } from 'react';
-
+import { useEffect, useState, useCallback } from 'react';
 
 import { loadPosts } from '../../utils/load-posts';
 import { Posts } from '../../components/Posts';
-import { LoadMorePosts } from '../../components/LoadMorePosts'
-import {SearchBar} from '../../components/SearchBar'
-class Home extends Component { 
-  state = { 
-    posts: [],
-    allPosts: [], 
-    page: 0, 
-    postsPerPage: 20,
-    searchValue: ''
-  }
+import { LoadMorePosts } from '../../components/LoadMorePosts';
+import { SearchBar } from '../../components/SearchBar';
 
-  componentDidMount(){ 
-    this.setPosts()
-  }
+const Home = () => {
+  const [posts, setPosts] = useState([]);
+  const [page, setPage] = useState(0);
+  const [postsPerPage] = useState(10);
+  const [allPosts, setAllPosts] = useState([]);
+  const [searchValue, setSearchValue] = useState('');
 
-  setPosts = async () => { 
-    const {page, postsPerPage} = this.state
-    const postsAndPhotos = await loadPosts()
-    this.setState({
-      posts: postsAndPhotos.slice(page, postsPerPage) , 
-      allPosts: postsAndPhotos
-    })
-  }
+  const filteredPosts = searchValue
+    ? allPosts.filter((post) => {
+        return post.title.toLowerCase().includes(searchValue.toLowerCase());
+      })
+    : posts;
 
-  loadMorePosts = () => { 
-    const { 
-      page,
-      postsPerPage,
-      allPosts, 
-      posts,
-     } = this.state
+  const fetchPosts = useCallback(async (page, postsPerPage) => {
+    const postsAndPhotos = await loadPosts();
+    setPosts(postsAndPhotos.slice(page, postsPerPage));
+    setAllPosts(postsAndPhotos);
+  }, []);
 
-    const nextPage = page + postsPerPage
-    const nextPosts = allPosts.slice(nextPage, nextPage + postsPerPage )
-    posts.push(...nextPosts)
-    this.setState({ 
-      posts, page: nextPage
-    }) 
-  }
-  handleChange = (event)=>{
-    this.setState({searchValue: event.target.value })
-  } 
+  const loadMorePosts = () => {
+    const nextPage = page + postsPerPage;
+    const nextPosts = allPosts.slice(nextPage, nextPage + postsPerPage);
+    posts.push(...nextPosts);
+    setPosts(posts);
+    setPage(nextPage);
+  };
+  const handleChange = (event) => {
+    setSearchValue(event.target.value);
+  };
 
-  render(){ 
-    const {posts, postsPerPage, page, allPosts,  searchValue} = this.state
-    const noMorePosts = page + postsPerPage >= allPosts.length ? true : false 
+  const noMorePosts = page + postsPerPage >= allPosts.length ? true : false;
 
-    const filteredPosts = !!searchValue ? allPosts.filter(post => {
-      return post.title.toLowerCase().includes(searchValue.toLowerCase())
-    }) 
-    : posts
-    return (
-      <section className='container'>
+  useEffect(() => {
+    console.log(new Date().toLocaleString('pt-BR'));
+    fetchPosts(0, postsPerPage);
+  }, [fetchPosts, postsPerPage]);
 
-        { !!searchValue && filteredPosts.length > 0 &&(
-        <>
-          <h1><b>Buscando por: </b> {searchValue} </h1>
-        </>
-        )} 
-
-        <SearchBar handleChange={this.handleChange} inputValue={searchValue} />
-        <Posts posts={filteredPosts}/>
-
-        {!!!searchValue && (
+  return (
+    <>
+      <div>raoni</div>
+      <section className="container">
+        {!!searchValue && filteredPosts.length > 0 && (
           <>
-            <LoadMorePosts 
-            text={'Load more posts'}
-            loadMorePosts={this.loadMorePosts}
-            disabled={noMorePosts}
-            />
+            <h1>
+              <b>Buscando por: </b> {searchValue}{' '}
+            </h1>
           </>
         )}
-        { !filteredPosts.length && (
+
+        <SearchBar handleChange={handleChange} inputValue={searchValue} />
+        <Posts posts={filteredPosts} />
+
+        {!searchValue && (
           <>
-           <h1>Não há resultados para esta busca =( </h1>
+            <LoadMorePosts text={'Load more posts'} loadMorePosts={loadMorePosts} disabled={noMorePosts} />
+          </>
+        )}
+        {!filteredPosts.length && (
+          <>
+            <h1>Não há resultados para esta busca =( </h1>
           </>
         )}
       </section>
-    );
-  }
-}
-
+    </>
+  );
+};
 export default Home;
