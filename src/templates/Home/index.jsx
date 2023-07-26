@@ -1,6 +1,6 @@
 import './styles.css';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 
 import { loadPosts } from '../../utils/load-posts';
@@ -21,11 +21,11 @@ const Home = () => {
   }) : posts
 
 
-  const fetchPosts = async () => {
+  const fetchPosts = useCallback(async (page, postsPerPage) => {
     const postsAndPhotos = await loadPosts()
     setPosts(postsAndPhotos.slice(page, postsPerPage))
     setAllPosts(postsAndPhotos)
-  }
+  }, [])
 
 
 
@@ -44,8 +44,9 @@ const Home = () => {
 
 
   useEffect(()=>{
-    fetchPosts()
-  }, ['fetchPosts'])
+    console.log(new Date().toLocaleString('pt-BR'));
+    fetchPosts(0, postsPerPage)
+  }, [fetchPosts, postsPerPage])
 
   return (
     <section className='container'>
