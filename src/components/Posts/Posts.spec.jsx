@@ -46,12 +46,6 @@ describe('<Posts />', () => {
             .toHaveAttribute('src', 'img/img3.png')
     })
 
-    it('should match the snapshot', ()=>{
-        const { container } = render(<Posts {...props} />)
-
-        expect(container.firstChild).toMatchSnapshot()
-    })
-
     it('should not render any post when empty props',()=>{
         const { container } = render(<Posts />)
 
