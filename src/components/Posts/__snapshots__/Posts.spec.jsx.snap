@@ -17,6 +17,8 @@ exports[`<Posts /> should match the snapshot 1`] = `
     >
       <h2>
         title 1
+         
+        1
       </h2>
       <p>
         body 1
@@ -36,6 +38,8 @@ exports[`<Posts /> should match the snapshot 1`] = `
     >
       <h2>
         title 2
+         
+        2
       </h2>
       <p>
         body 2
@@ -55,6 +59,8 @@ exports[`<Posts /> should match the snapshot 1`] = `
     >
       <h2>
         title 3
+         
+        3
       </h2>
       <p>
         body 3
@@ -74,89 +80,8 @@ exports[`<Posts /> should match the snapshot 1`] = `
     >
       <h2>
         title 4
-      </h2>
-      <p>
-        body 4
-      </p>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`<Posts /> should match the snapshot 2`] = `
-<div
-  class="posts"
->
-  <div
-    class="post"
-  >
-    <img
-      alt="title 1"
-      class="postImg"
-      src="img/img1.png"
-    />
-    <div
-      class="post-content"
-    >
-      <h2>
-        title 1
-      </h2>
-      <p>
-        body 1
-      </p>
-    </div>
-  </div>
-  <div
-    class="post"
-  >
-    <img
-      alt="title 2"
-      class="postImg"
-      src="img/img2.png"
-    />
-    <div
-      class="post-content"
-    >
-      <h2>
-        title 2
-      </h2>
-      <p>
-        body 2
-      </p>
-    </div>
-  </div>
-  <div
-    class="post"
-  >
-    <img
-      alt="title 3"
-      class="postImg"
-      src="img/img3.png"
-    />
-    <div
-      class="post-content"
-    >
-      <h2>
-        title 3
-      </h2>
-      <p>
-        body 3
-      </p>
-    </div>
-  </div>
-  <div
-    class="post"
-  >
-    <img
-      alt="title 4"
-      class="postImg"
-      src="img/img4.png"
-    />
-    <div
-      class="post-content"
-    >
-      <h2>
-        title 4
+         
+        4
       </h2>
       <p>
         body 4
