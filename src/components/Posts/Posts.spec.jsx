@@ -1,4 +1,4 @@
-const { render, screen } = require('@testing-library/react');
+import { render, screen } from '@testing-library/react';
 import { Posts } from '.';
 
 const props = {
@@ -42,7 +42,7 @@ describe('<Posts />', () => {
   });
 
   it('should not render any post when empty props', () => {
-    const { container } = render(<Posts />);
+    render(<Posts />);
 
     expect(screen.queryByRole('heading', { name: /title/i })).not.toBeInTheDocument();
   });

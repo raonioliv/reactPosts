@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchBar /> should match the snapshot 1`] = `
+<div
+  class="searchBar__wrapper inputWithIcon"
+>
+  <label
+    class="searchBar__label"
+    for="searchBar"
+  >
+    Pesquisar por posts
+  </label>
+  <input
+    class="searchBar__input"
+    id="searchBar"
+    name="searchBar"
+    placeholder="Pesquisar"
+    title="Barra de pesquisa"
+    type="text"
+    value=""
+  />
+  <i
+    class="search-icon searchBar__icon"
+    role="button"
+  />
+</div>
+`;

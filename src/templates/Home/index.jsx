@@ -6,11 +6,12 @@ import { loadPosts } from '../../utils/load-posts';
 import { Posts } from '../../components/Posts';
 import { LoadMorePosts } from '../../components/LoadMorePosts';
 import { SearchBar } from '../../components/SearchBar';
+import { act } from 'react-dom/test-utils';
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(0);
-  const [postsPerPage] = useState(10);
+  const [postsPerPage] = useState(7);
   const [allPosts, setAllPosts] = useState([]);
   const [searchValue, setSearchValue] = useState('');
 
@@ -22,8 +23,8 @@ const Home = () => {
 
   const fetchPosts = useCallback(async (page, postsPerPage) => {
     const postsAndPhotos = await loadPosts();
-    setPosts(postsAndPhotos.slice(page, postsPerPage));
     setAllPosts(postsAndPhotos);
+    setPosts(postsAndPhotos.slice(page, postsPerPage));
   }, []);
 
   const loadMorePosts = () => {
@@ -34,7 +35,10 @@ const Home = () => {
     setPage(nextPage);
   };
   const handleChange = (event) => {
-    setSearchValue(event.target.value);
+    const { value } = event.target;
+    act(() => {
+      setSearchValue(value);
+    });
   };
 
   const noMorePosts = page + postsPerPage >= allPosts.length ? true : false;
@@ -42,11 +46,10 @@ const Home = () => {
   useEffect(() => {
     console.log(new Date().toLocaleString('pt-BR'));
     fetchPosts(0, postsPerPage);
-  }, [fetchPosts, postsPerPage]);
+  }, [postsPerPage, fetchPosts]);
 
   return (
     <>
-      <div>raoni</div>
       <section className="container">
         {!!searchValue && filteredPosts.length > 0 && (
           <>
@@ -56,7 +59,7 @@ const Home = () => {
           </>
         )}
 
-        <SearchBar handleChange={handleChange} inputValue={searchValue} />
+        <SearchBar handleChange={handleChange} searchValue={searchValue} />
         <Posts posts={filteredPosts} />
 
         {!searchValue && (
