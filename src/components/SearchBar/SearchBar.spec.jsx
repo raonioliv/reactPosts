@@ -25,4 +25,12 @@ describe('<SearchBar />', () => {
     expect(input.value).toBe(value);
     expect(fn).toHaveBeenCalledTimes(value.length);
   });
+
+  it('should match the snapshot', () => {
+    const fn = jest.fn();
+    const value = '';
+    const { container } = render(<SearchBar handleChange={fn} searchValue={value} />);
+
+    expect(container.firstChild).toMatchSnapshot();
+  });
 });
